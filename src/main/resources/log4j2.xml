@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%.8t] %-5level %logger{1.} - %msg%n"/>
+    </Console>
+    <NoSql name="mongodb">
+      <MongoDb4 capped="true" collectionSize="1073741824" connection="${env:MONGO_LOG_URI:-mongodb://localhost:27017/log.mongo4test}" />
+    </NoSql>
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="Console" />
+      <AppenderRef ref="mongodb" />
+    </Root>
+    <Logger name="com.example" level="TRACE"/>
+    <Logger name="io.grpc" level="INFO"/>
+  </Loggers>
+</Configuration>
